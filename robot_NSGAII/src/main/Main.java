@@ -2,6 +2,7 @@ package main;
 
 import java.awt.Color;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -23,6 +24,7 @@ public class Main {
 		gui.generateEnvironment("obstacles.txt");
 
 		// Doc du lieu dau vao
+		ArrayList<Point> result = new ArrayList<Point>();
 		Graph graph = new Graph("obstacles.txt");
 		LinkedList<Point> startEndPoints = readPointData("input.txt");
 		GraphDivision graphDivision = new GraphDivision(graph, startEndPoints);
@@ -35,10 +37,17 @@ public class Main {
 //				gui.canvas.drawLine(findPath.get(i), findPath.get(i + 1), Color.BLACK);
 //			}
 			LinkedList<Point> findPathAfterFixed = nsgaii.getPathAfterFixed();
-			for (int i = 0; i < (findPathAfterFixed.size() - 1); i++) {
-				gui.canvas.drawLine(findPathAfterFixed.get(i), findPathAfterFixed.get(i + 1), Color.ORANGE);
+			result.add(startEndPoints.get(0));
+			for (int j = 0; j < findPathAfterFixed.size(); j++) {
+				result.add(findPathAfterFixed.get(j));
 			}
-			gui.canvas.drawLineStartToEnd(startEndPoints);
+			result.add(startEndPoints.get(1));
+			
+			for (int i = 0; i < (findPathAfterFixed.size() - 1); i++) {
+				System.out.println("aaa" + findPathAfterFixed.size());
+				gui.canvas.drawLines(result, startEndPoints);
+			}
+//			gui.canvas.drawLineStartToEnd(startEndPoints);
 
 			System.out.println("Done");
 			System.out.println("Path Distance: " + (double) Math.round(nsgaii.pathDistance * 10000) / 10000);

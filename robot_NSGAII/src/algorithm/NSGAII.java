@@ -11,6 +11,7 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -30,9 +31,10 @@ public class NSGAII {
 	public static Point startPoint;
 	public static Point endPoint;
 	public double distanceX;
+	public final int IT = 3;
 	final int NP = 100; // population size
 	final int crossoverPoint = 3; // crossoverPoint
-	int numY = 20;
+	int numY = 5;
 	public LinkedList<Path> POP = new LinkedList<Path>();
 	public LinkedList<Path> NDPOP = new LinkedList<Path>();
 	static final double maxPointy = 5;
@@ -106,7 +108,7 @@ public class NSGAII {
 	}
 
 	public void getListPathResult(LinkedList<Path> listPath) {
-		for (int i = 0; i < listPath.size(); i++) {
+//		for (int i = 0; i < listPath.size(); i++) {
 //			int check = 0;
 //			for (int j = 0; j < listPath.get(i).points.length - 1; j++) {
 //				Line tempLine = new Line(listPath.get(i).points[j], listPath.get(i).points[j + 1]);
@@ -122,11 +124,12 @@ public class NSGAII {
 //			} else System.out.println(i + "  nooooooooooooooooooooooooo");
 
 //			Path rightPath = InvalidSolutionOperator(listPath.get(i));
-			for (int j = 0; j < listPath.get(i).points.length; j++) {
-				Point point = new Point(listPath.get(i).points[j].x, listPath.get(i).points[j].y);
-				pointsToVisitAfterFixed.add(point);
-			}
+
+		for (int j = 1; j < listPath.get(0).points.length - 1; j++) {
+			Point point = new Point(listPath.get(0).points[j].x, listPath.get(0).points[j].y);
+			pointsToVisitAfterFixed.add(point);
 		}
+//		}
 	}
 
 	public LinkedList<Path> InvalidSolutionOperator(LinkedList<Path> listPathPopC) {
@@ -398,15 +401,15 @@ public class NSGAII {
 			if (front[i].size() != 0)
 				crowdingDistance(front[i]);
 		}
-
-//		for (int i = 0; i < front.length; i++) {
-//			if (front[i].size() != 0) {
-//				for (int j = 0; j < front[i].size(); j++) {
-//					listPathAfterRanking.add(front[i].get(j));
-//				}
-//			}
-//		}
-
+//all front
+		for (int i = 0; i < front.length; i++) {
+			if (front[i].size() != 0) {
+				for (int j = 0; j < front[i].size(); j++) {
+					listPathAfterRanking.add(front[i].get(j));
+				}
+			}
+		}
+//first  front
 		for (int j = 0; j < front[0].size(); j++) {
 			listPathAfterRanking.add(front[0].get(j));
 		}
@@ -683,6 +686,8 @@ public class NSGAII {
 	}
 
 	public NSGAII(Graph graph, Point startPoint, Point endPoint) throws IOException {
+		LinkedList<Path> TEMPPOP = new LinkedList<Path>();
+		LinkedList<Path> POPparent = new LinkedList<Path>();
 
 		LinkedList<Path> POPc = new LinkedList<Path>();
 		LinkedList<Path> NDPOP = new LinkedList<Path>();
@@ -692,30 +697,53 @@ public class NSGAII {
 		this.endPoint = endPoint;
 		getDistanceX(numY, startPoint, endPoint);
 		initialize();
+		for (Path path : POP) {
+			POPparent.add(path);
+		}
+		for (int i = 0; i < IT; i++) {
 
 //		printResult();
 //		List<Path> listPaths = new LinkedList<Path>(Arrays.asList(POP));
 //		listAfterRanking = ranking(POP);
-		POPc = SelectionOperation(POP);
-		NEWPOP = CrossoverOperation(POPc);
+			POPc = SelectionOperation(POPparent);
+			NEWPOP = CrossoverOperation(POPc);
 //		printLinkedList(NEWPOP);
-		NEWPOP = InvalidSolutionOperator(NEWPOP);
+			NEWPOP = InvalidSolutionOperator(NEWPOP);
 //		NEWPOP = ShortnessOperator(NEWPOP);
 //
-		NEWPOP = ranking(NEWPOP);
-		NEWPOP = ShortnessOperator(NEWPOP);
-		NEWPOP = ranking(NEWPOP);
+			for (Path path : POPparent) {
+				TEMPPOP.add(path);
+			}
+			for (Path path : NEWPOP) {
+				TEMPPOP.add(path);
+			}
+			POPparent.clear();
+			NEWPOP.clear();
+			POPc.clear();
+			NEWPOP.clear();
+			TEMPPOP = ranking(TEMPPOP);
+			for (Path path : TEMPPOP) {
+				System.out.println("DDDDD" + path);
+			}
+			for (int j = 0; j < POP.size(); j++) {
+				POPparent.add(TEMPPOP.get(j));
+			}
+			TEMPPOP.clear();
+//		NEWPOP = ShortnessOperator(NEWPOP);
+//		NEWPOP = ranking(NEWPOP);
 //		POP = InvalidSolutionOperator(POP);
-		getListPathResult(NEWPOP);
+
+		}
+		getListPathResult(POPparent);
 
 //		getPath();
-		getObjectiveValue(NEWPOP);
+//			getObjectiveValue(POPparent);
 		getPathAfterFixed();
-		
-		for (Path path : NEWPOP) {
-			System.out.println("		Path" + "  " + (double) Math.round(path.pathDistance() * 10000) / 10000 + " "
-					+ (double) Math.round(path.pathSafety(graph) * 10000) / 10000 + "  "
-					+ (double) Math.round(path.pathSmooth() * 10000) / 10000);
-		}
+
+//			for (Path path : POPparent) {
+//				System.out.println("		Path" + "  " + (double) Math.round(path.pathDistance() * 10000) / 10000
+//						+ " " + (double) Math.round(path.pathSafety(graph) * 10000) / 10000 + "  "
+//						+ (double) Math.round(path.pathSmooth() * 10000) / 10000);
+//			}
 	}
 }

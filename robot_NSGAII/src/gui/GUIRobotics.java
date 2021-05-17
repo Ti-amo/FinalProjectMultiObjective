@@ -173,14 +173,14 @@ public class GUIRobotics {
 			g2.draw(new Line2D.Double(OX + pt1.x * alpha, OY - pt1.y * alpha, OX + pt2.x * alpha, OY - pt2.y * alpha));
 		}
 		
-		public void drawLineStartToEnd(LinkedList<Point> pointsToVisit) {
-            Graphics2D g2 = (Graphics2D) getGraphics();
-            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                    RenderingHints.VALUE_ANTIALIAS_ON);
-            g2.setStroke(new BasicStroke(2));
-            g2.setColor(Color.blue);
-            g2.draw(new Line2D.Double(OX + pointsToVisit.getFirst().x * alpha, OY - pointsToVisit.getFirst().y * alpha, OX + pointsToVisit.getLast().x * alpha, OY - pointsToVisit.getLast().y * alpha));
-        }
+//		public void drawLineStartToEnd(LinkedList<Point> pointsToVisit) {
+//            Graphics2D g2 = (Graphics2D) getGraphics();
+//            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+//                    RenderingHints.VALUE_ANTIALIAS_ON);
+//            g2.setStroke(new BasicStroke(2));
+//            g2.setColor(Color.blue);
+//            g2.draw(new Line2D.Double(OX + pointsToVisit.getFirst().x * alpha, OY - pointsToVisit.getFirst().y * alpha, OX + pointsToVisit.getLast().x * alpha, OY - pointsToVisit.getLast().y * alpha));
+//        }
 	}
 
 	public static void main(String[] args) throws FileNotFoundException, InterruptedException {
