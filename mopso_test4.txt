@@ -1,0 +1,91 @@
+Total execution time: 3953
+----------------------
+Total execution time: 4480
+----------------------
+Total execution time: 4094
+----------------------
+Total execution time: 3900
+----------------------
+Total execution time: 5416
+----------------------
+Total execution time: 4244
+----------------------
+Path :  79.7258 0.8187  1.3885
+Path :  79.7301 0.8187  1.3874
+Path :  79.7113 0.8187  1.3888
+Path :  79.672 0.8187  1.3903
+Path :  79.6804 0.8187  1.3892
+Path :  79.6685 0.8187  1.3918
+Path :  79.7352 0.8187  1.387
+Path :  79.759 0.8701  1.3847
+Path :  79.7728 0.8187  1.3865
+Path :  79.8233 0.8187  1.3862
+Total execution time: 2330
+----------------------
+Path :  79.9968 0.8187  1.3961
+Path :  79.9921 0.8187  1.3965
+Path :  80.023 0.8187  1.3941
+Path :  80.0537 0.8187  1.3936
+Path :  80.0027 0.8187  1.3947
+Path :  80.0241 0.8187  1.3938
+Path :  80.021 0.8187  1.3942
+Path :  80.0714 0.8187  1.3919
+Path :  79.9969 0.8187  1.3949
+Total execution time: 3190
+----------------------
+Total execution time: 3286
+----------------------
+Total execution time: 3653
+----------------------
+Total execution time: 3573
+----------------------
+Total execution time: 4516
+----------------------
+Total execution time: 2736
+----------------------
+Total execution time: 3581
+----------------------
+Total execution time: 3309
+----------------------
+Total execution time: 3607
+----------------------
+Total execution time: 3499
+----------------------
+Total execution time: 3146
+----------------------
+Total execution time: 3295
+----------------------
+Total execution time: 2615
+----------------------
+Total execution time: 3562
+----------------------
+Total execution time: 3112
+----------------------
+Total execution time: 3964
+----------------------
+Total execution time: 3740
+----------------------
+Total execution time: 2792
+----------------------
+Path :  80.1765 0.8187  1.4006
+Path :  80.1281 0.9938  1.4034
+Path :  80.1438 0.9452  1.4012
+Path :  80.1654 0.8452  1.4003
+Path :  80.145 0.8836  1.4003
+Path :  80.1766 0.8187  1.4005
+Path :  80.1171 0.9983  1.4019
+Path :  80.1718 0.8354  1.3993
+Path :  80.182 0.8187  1.4001
+Path :  80.1341 0.8187  1.4044
+Total execution time: 2256
+----------------------
+Total execution time: 2769
+----------------------
+Total execution time: 2585
+----------------------
+Total execution time: 2682
+----------------------
+Total execution time: 2950
+----------------------
+Total execution time: 3876
+----------------------

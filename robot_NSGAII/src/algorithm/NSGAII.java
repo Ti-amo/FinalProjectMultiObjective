@@ -32,11 +32,13 @@ public class NSGAII {
 	public double distanceX;
 	final int NP = 100; // population size
 	final int crossoverPoint = 3; // crossoverPoint
-	int numY = 20;
+	int numY = 15;
 	public LinkedList<Path> POP = new LinkedList<Path>();
 	public LinkedList<Path> NDPOP = new LinkedList<Path>();
 	static final double maxPointy = 5;
 	static final double minPointy = -5;
+//	static final double maxPointy = 3;
+//	static final double minPointy = -3;
 	static Random rd = new Random();
 	public LinkedList<Point> pointsToVisit = new LinkedList<Point>();
 	public LinkedList<Point> pointsToVisitAfterFixed = new LinkedList<Point>();
@@ -653,7 +655,8 @@ public class NSGAII {
 //			newListPath2 = ShortnessOperator(newListPath);
 //			System.out.println(
 //					"check length" + newListPath.get(i).points.length + " ??? " + listPathPopC.get(i).points.length);
-			//set all check point
+//			set all check point
+			
 //			if (newListPath.get(i).points.length != listPathPopC.get(i).points.length)
 //				newListPath = ShortnessOperator(newListPath);
 		}

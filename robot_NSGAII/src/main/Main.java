@@ -16,17 +16,18 @@ import util.Point;
 public class Main {
 	public static void main(String[] args) throws IOException {
 		final long startTime = System.currentTimeMillis();
-		String FILE_URL = "/home/primer/Primer/FINAL PROJECT/nsgaii_test.txt";
+		String FILE_URL = "/home/primer/Primer/FINAL PROJECT/FinalCodeMultiObjective/nsgaii_test2.txt";
 		File file = new File(FILE_URL);
+		String numberTeString = "2";
 
 		// Tao moi truong
 		GUIRobotics gui = new GUIRobotics(1000, 100, 10);
-		gui.generateEnvironment("obstacles.txt");
-
+		gui.generateEnvironment("obstacle_" + numberTeString + ".txt");
+		Graph graph = new Graph("obstacle_" + numberTeString + ".txt");
 		// Doc du lieu dau vao
 		ArrayList<Point> result = new ArrayList<Point>();
-		Graph graph = new Graph("obstacles.txt");
-		LinkedList<Point> startEndPoints = readPointData("input.txt");
+
+		LinkedList<Point> startEndPoints = readPointData("input_" + numberTeString + ".txt");
 		GraphDivision graphDivision = new GraphDivision(graph, startEndPoints);
 		NSGAII nsgaii = new NSGAII(graph, startEndPoints.getFirst(), startEndPoints.getLast());
 		try {
@@ -42,9 +43,8 @@ public class Main {
 				result.add(findPathAfterFixed.get(j));
 			}
 			result.add(startEndPoints.get(1));
-			
+
 			for (int i = 0; i < (findPathAfterFixed.size() - 1); i++) {
-				System.out.println("aaa" + findPathAfterFixed.size());
 				gui.canvas.drawLines(result, startEndPoints);
 			}
 //			gui.canvas.drawLineStartToEnd(startEndPoints);
