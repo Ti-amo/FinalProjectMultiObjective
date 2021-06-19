@@ -35,8 +35,8 @@ public class NSGAII {
 	int numY = 15;
 	public LinkedList<Path> POP = new LinkedList<Path>();
 	public LinkedList<Path> NDPOP = new LinkedList<Path>();
-	static final double maxPointy = 5;
-	static final double minPointy = -5;
+	static final double maxPointy = 10;
+	static final double minPointy = -10;
 //	static final double maxPointy = 3;
 //	static final double minPointy = -3;
 	static Random rd = new Random();

@@ -2,8 +2,7 @@ package gui;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Line2D;
+import java.awt.geom.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -53,19 +52,28 @@ public class GUIRobotics {
 		canvas = new MyCanvas();
 
 		controlPanel.add(canvas);
-
+		Graphics2D g2 = (Graphics2D) canvas.getGraphics();
 		// draw obstacles
 		ArrayList<ObstaclesGraph> obstacles = ObstaclesGraph.getObtacles(obtacles_file);
-
+		
 		for (ObstaclesGraph obstacle : obstacles) {
-			for (int i = 0; i < obstacle.points.size() - 1; i++) {
-				canvas.drawLine(obstacle.points.get(i), obstacle.points.get(i + 1));
+			Polygon polygon = new Polygon();
+			for (int i = 0; i < obstacle.points.size(); i++) {
+				polygon.addPoint((int) (MyCanvas.OX + obstacle.points.get(i).x * size / range),
+						(int) (MyCanvas.OY - obstacle.points.get(i).y * size / range));
 			}
-			canvas.drawLine(obstacle.points.get(0), obstacle.points.get(obstacle.points.size() - 1));
+			g2.setColor(Color.darkGray);
+			g2.fill(polygon);
+			
+			for (int i = 0; i < obstacle.points.size() - 1; i++) {
+				canvas.drawLine(obstacle.points.get(i), obstacle.points.get(i + 1),Color.darkGray);
+			}
+			canvas.drawLine(obstacle.points.get(0), obstacle.points.get(obstacle.points.size() - 1), Color.darkGray);
 		}
 
 		// draw Oxy
-		Graphics2D g2 = (Graphics2D) canvas.getGraphics();
+		
+		
 		g2.drawLine(MyCanvas.OX, MyCanvas.OY, MyCanvas.OY, MyCanvas.OY);
 		g2.drawLine(MyCanvas.OX, MyCanvas.OY, MyCanvas.OX, MyCanvas.OX);
 		g2.drawString("O", MyCanvas.OX - 10, MyCanvas.OY + 10);
@@ -89,7 +97,6 @@ public class GUIRobotics {
 			g2.drawString(String.valueOf(range / numOfRange * (i + 1)), MyCanvas.OX,
 					(int) (MyCanvas.OY - size / range * 10 * (i + 1)));
 		}
-
 		mainFrame.setVisible(true);
 	}
 
@@ -120,7 +127,7 @@ public class GUIRobotics {
 			Graphics2D g2 = (Graphics2D) getGraphics();
 			g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 			g2.setStroke(new BasicStroke(2));
-			g2.setColor(Color.RED);
+			g2.setColor(Color.gray);
 			g2.draw(new Line2D.Double(OX + p1.x * alpha, OY - p1.y * alpha, OX + p2.x * alpha, OY - p2.y * alpha));
 		}
 
@@ -135,6 +142,28 @@ public class GUIRobotics {
 		public void drawLines(ArrayList<Point> points, LinkedList<Point> pointsToVisit) {
 			Graphics2D g2 = (Graphics2D) getGraphics();
 			g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+			g2.setColor(Color.magenta);
+			g2.setStroke(new BasicStroke(2.0f));
+			for (int i = 0; i < points.size() - 1; i++) {
+				g2.draw(new Line2D.Double(OX + points.get(i).x * alpha, OY - points.get(i).y * alpha,
+						OX + points.get(i + 1).x * alpha, OY - points.get(i + 1).y * alpha));
+			}
+			g2.setColor(Color.RED);
+			for (int i = 0; i < points.size(); i++) {
+				Point pt = new Point(points.get(i).x, points.get(i).y);
+				if (pt.indexInSet(pointsToVisit) == -1) {
+					g2.setColor(Color.gray);
+					g2.fill(new Rectangle2D.Double(OX + points.get(i).x * alpha - 3, OY - points.get(i).y * alpha - 3, 6,
+							6));
+					g2.setColor(Color.RED);
+				} else
+					g2.fill(new Ellipse2D.Double(OX + points.get(i).x * alpha - 4, OY - points.get(i).y * alpha - 4, 8,
+							8));
+			}
+		}
+		public void drawLinesPSOES(ArrayList<Point> points, LinkedList<Point> pointsToVisit) {
+			Graphics2D g2 = (Graphics2D) getGraphics();
+			g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 			g2.setColor(Color.BLUE);
 			for (int i = 0; i < points.size() - 1; i++) {
 				g2.draw(new Line2D.Double(OX + points.get(i).x * alpha, OY - points.get(i).y * alpha,
@@ -147,6 +176,29 @@ public class GUIRobotics {
 				if (pt.indexInSet(pointsToVisit) == -1) {
 					g2.setColor(Color.BLACK);
 					g2.fill(new Ellipse2D.Double(OX + points.get(i).x * alpha - 3, OY - points.get(i).y * alpha - 3, 6,
+							6));
+					g2.setColor(Color.RED);
+				} else
+					g2.fill(new Ellipse2D.Double(OX + points.get(i).x * alpha - 4, OY - points.get(i).y * alpha - 4, 8,
+							8));
+			}
+		}
+		public void drawLinesPSO(ArrayList<Point> points, LinkedList<Point> pointsToVisit) {
+			Graphics2D g2 = (Graphics2D) getGraphics();
+			g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+			g2.setColor(Color.orange);
+			g2.setStroke(new BasicStroke(2.0f));
+			for (int i = 0; i < points.size() - 1; i++) {
+				g2.draw(new Line2D.Double(OX + points.get(i).x * alpha, OY - points.get(i).y * alpha,
+						OX + points.get(i + 1).x * alpha, OY - points.get(i + 1).y * alpha));
+			}
+
+			g2.setColor(Color.RED);
+			for (int i = 0; i < points.size(); i++) {
+				Point pt = new Point(points.get(i).x, points.get(i).y);
+				if (pt.indexInSet(pointsToVisit) == -1) {
+					g2.setColor(Color.BLACK);
+					g2.fill(new Rectangle2D.Double(OX + points.get(i).x * alpha - 3, OY - points.get(i).y * alpha - 3, 6,
 							6));
 					g2.setColor(Color.RED);
 				} else

@@ -18,9 +18,9 @@ import util.Point;
 public class Main {
 	public static void main(String[] args) throws IOException {
 		long time = System.currentTimeMillis();
-		String FILE_URL = "/home/primer/Primer/FINAL PROJECT/FinalCodeMultiObjective/mopso_test2.txt";
+		String FILE_URL = "../mopso_test9.txt";
 		File file = new File(FILE_URL);
-		String numberTeString = "2";
+		String numberTeString = "9";
 		// Tao moi truong
 		GUIRobotics gui = new GUIRobotics(1000, 100, 10);
 		gui.generateEnvironment("obstacle_" + numberTeString + ".txt");
@@ -68,6 +68,7 @@ public class Main {
 			e.printStackTrace();
 		}
 		System.out.println("Time:\t" + time + " ms");
+		System.out.println("result" + result);
 		System.out.println("Done!");
 	}
 

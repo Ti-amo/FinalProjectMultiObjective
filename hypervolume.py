@@ -1,7 +1,7 @@
 from pygmo import hypervolume
 'hypervolume' in dir()
 
-f = open("mopso_test6.txt", "r")
+f = open("mopso_test4.txt", "r")
 
 hypervolumeArray = []
 

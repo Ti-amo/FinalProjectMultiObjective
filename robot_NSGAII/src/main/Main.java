@@ -3,6 +3,7 @@ package main;
 import java.awt.Color;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -16,9 +17,10 @@ import util.Point;
 public class Main {
 	public static void main(String[] args) throws IOException {
 		final long startTime = System.currentTimeMillis();
-		String FILE_URL = "/home/primer/Primer/FINAL PROJECT/FinalCodeMultiObjective/nsgaii_test2.txt";
+		String FILE_URL = "../nsgaii_test9.txt";
 		File file = new File(FILE_URL);
-		String numberTeString = "2";
+		String numberTeString = "9";
+		
 
 		// Tao moi truong
 		GUIRobotics gui = new GUIRobotics(1000, 100, 10);
@@ -47,8 +49,10 @@ public class Main {
 			for (int i = 0; i < (findPathAfterFixed.size() - 1); i++) {
 				gui.canvas.drawLines(result, startEndPoints);
 			}
+			
 //			gui.canvas.drawLineStartToEnd(startEndPoints);
-
+				System.out.println("result" + result);
+			
 			System.out.println("Done");
 			System.out.println("Path Distance: " + (double) Math.round(nsgaii.pathDistance * 10000) / 10000);
 			System.out.println("Path Smooth: " + (double) Math.round(nsgaii.pathSmooth * 10000) / 10000);
